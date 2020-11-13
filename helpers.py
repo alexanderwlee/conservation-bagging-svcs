@@ -5,6 +5,7 @@ from sklearn.svm import SVC
 from sklearn.ensemble import BaggingClassifier
 from sklearn.model_selection import KFold
 from sklearn.metrics import accuracy_score
+from sklearn.preprocessing import StandardScaler
 
 
 def lexicase(estimator_pred_dict, X_test, y_test, shuffle_random_seed):
@@ -99,3 +100,8 @@ def experiment(X, y, n_repl=30, n_folds=5, n_runs=20, n_svcs=100):
             print('\tgarage_1000_score:', garage_1000_score)
 
             fold += 1
+
+
+if __name__ == '__main__':
+    # use for debugging purposes
+    pass
