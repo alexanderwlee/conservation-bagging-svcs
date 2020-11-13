@@ -72,12 +72,12 @@ def experiment(X, y, n_repl=30, n_folds=5, n_runs=20, n_svcs=100):
             super_ensemble = []
             for run in range(n_runs):
                 print('\t\trun:', run + 1)
-                svc_bag = BaggingClassifier(base_estimator=SVC(), n_estimators=n_svcs, n_jobs=-1, random_state=0)
-                svc_bag.fit(X_train, y_train)
-                svc_bag_score = svc_bag.score(X_test, y_test)
-                print('\t\tsvc_bag_score:', svc_bag_score)
-                factory += svc_bag.estimators_
-                super_ensemble.append(svc_bag)
+                bag_svc = BaggingClassifier(base_estimator=SVC(), n_estimators=n_svcs, n_jobs=-1, random_state=0)
+                bag_svc.fit(X_train, y_train)
+                bag_svc_score = bag_svc.score(X_test, y_test)
+                print('\t\tbag_svc_score:', bag_svc_score)
+                factory += bag_svc.estimators_
+                super_ensemble.append(bag_svc)
 
             factory_score = maj_vote_score(factory, X_test, y_test)
             print('\tfactory_score:', factory_score)
