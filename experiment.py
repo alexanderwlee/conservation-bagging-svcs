@@ -32,12 +32,12 @@ def lexicase(estimator_pred_dict, X_test, y_test, shuffle_random_seed):
     return random.choice(list(candidates.keys()))
 
 
-def lexigarage(estimator_pred_dict, X_test, y_test, n_estimators):
-    garage = []
+def lexiworkshop(estimator_pred_dict, X_test, y_test, n_estimators):
+    workshop = []
     for i in range(n_estimators):
         estimator = lexicase(estimator_pred_dict, X_test, y_test, i)
-        garage.append(estimator)
-    return garage
+        workshop.append(estimator)
+    return workshop
 
 
 def get_factory_pred_dict(factory, X_test):
@@ -59,7 +59,7 @@ def maj_vote_score(estimators, X_test, y_test):
     return accuracy_score(y_test, y_pred)
 
 
-def experiment(X, y, n_repl=30, n_folds=5, n_runs=20, n_svcs=100):
+def experiment(X, y, n_repl=10, n_folds=5, n_runs=10, n_svcs=100):
     for rep in range(n_repl):
         print('rep:', rep + 1)
         kf = KFold(n_splits=n_folds, shuffle=True, random_state=rep)
@@ -75,29 +75,29 @@ def experiment(X, y, n_repl=30, n_folds=5, n_runs=20, n_svcs=100):
                 bag_svc = BaggingClassifier(base_estimator=SVC(), n_estimators=n_svcs, n_jobs=-1, random_state=0)
                 bag_svc.fit(X_train, y_train)
                 bag_svc_score = bag_svc.score(X_test, y_test)
-                print('\t\tbag_svc_score:', bag_svc_score)
+                print('\t\t\tbag_svc_score:', bag_svc_score)
                 factory += bag_svc.estimators_
                 super_ensemble.append(bag_svc)
 
             factory_score = maj_vote_score(factory, X_test, y_test)
-            print('\tfactory_score:', factory_score)
+            print('\t\tfactory_score:', factory_score)
 
             super_ensemble_score = maj_vote_score(super_ensemble, X_test, y_test)
-            print('\tsuper_ensemble_score:', super_ensemble_score)
+            print('\t\tsuper_ensemble_score:', super_ensemble_score)
 
             factory_pred_dict = get_factory_pred_dict(factory, X_test)
 
-            garage_100 = lexigarage(factory_pred_dict, X_test, y_test, 100)
-            garage_100_score = maj_vote_score(garage_100, X_test, y_test)
-            print('\tgarage_100_score:', garage_100_score)
+            workshop_100 = lexiworkshop(factory_pred_dict, X_test, y_test, 100)
+            workshop_100_score = maj_vote_score(workshop_100, X_test, y_test)
+            print('\t\tworkshop_100_score:', workshop_100_score)
 
-            garage_300 = lexigarage(factory_pred_dict, X_test, y_test, 300)
-            garage_300_score = maj_vote_score(garage_300, X_test, y_test)
-            print('\tgarage_300_score:', garage_300_score)
+            workshop_300 = lexiworkshop(factory_pred_dict, X_test, y_test, 300)
+            workshop_300_score = maj_vote_score(workshop_300, X_test, y_test)
+            print('\t\tworkshop_300_score:', workshop_300_score)
 
-            garage_1000 = lexigarage(factory_pred_dict, X_test, y_test, 1000)
-            garage_1000_score = maj_vote_score(garage_1000, X_test, y_test)
-            print('\tgarage_1000_score:', garage_1000_score)
+            workshop_500 = lexiworkshop(factory_pred_dict, X_test, y_test, 500)
+            workshop_500_score = maj_vote_score(workshop_500, X_test, y_test)
+            print('\t\tworkshop_500_score:', workshop_500_score)
 
             fold += 1
 
