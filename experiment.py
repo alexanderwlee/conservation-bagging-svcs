@@ -59,47 +59,85 @@ def maj_vote_score(estimators, X_test, y_test):
     return accuracy_score(y_test, y_pred)
 
 
-def experiment(X, y, n_repl=10, n_folds=5, n_runs=10, n_svcs=100):
+def experiment(X, y, n_repl=10, n_folds=5, n_runs=10, n_svcs=100, save_data=False, data_file_name='test_data_file'):
+    # TODO: finish dataframe creation
+    df_dict = {
+        'rep': [], 'bag_svc': [], 'factory': [], 'super_ensemble': [], 
+        'workshop_100': [], 'workshop_300': [], 'workshop_500': []
+    } 
     for rep in range(n_repl):
-        print('rep:', rep + 1)
+        print('rep:', rep)
+        df_dict['rep'].append(rep)
         kf = KFold(n_splits=n_folds, shuffle=True, random_state=rep)
         fold = 0
+        sum_fold_bag_svc_score = 0
+        sum_fold_factory_score = 0
+        sum_fold_super_ensemble_score = 0
+        sum_fold_workshop_100_score = 0
+        sum_fold_workshop_300_score = 0
+        sum_fold_workshop_500_score = 0
         for train_index, test_index in kf.split(X):
-            print('\tfold:', fold + 1)
+            print('\tfold:', fold)
             X_train, X_test = X[train_index], X[test_index]
             y_train, y_test = y[train_index], y[test_index]
+            sum_run_bag_svc_score = 0
             factory = []
             super_ensemble = []
             for run in range(n_runs):
-                print('\t\trun:', run + 1)
+                print('\t\trun:', run)
                 bag_svc = BaggingClassifier(base_estimator=SVC(), n_estimators=n_svcs, n_jobs=-1, random_state=0)
                 bag_svc.fit(X_train, y_train)
                 bag_svc_score = bag_svc.score(X_test, y_test)
                 print('\t\t\tbag_svc_score:', bag_svc_score)
+                sum_run_bag_svc_score += bag_svc_score
                 factory += bag_svc.estimators_
                 super_ensemble.append(bag_svc)
+            mean_run_bag_svc_score = sum_run_bag_svc_score / n_runs
+            sum_fold_bag_svc_score += mean_run_bag_svc_score
 
             factory_score = maj_vote_score(factory, X_test, y_test)
             print('\t\tfactory_score:', factory_score)
+            sum_fold_factory_score += factory_score
 
             super_ensemble_score = maj_vote_score(super_ensemble, X_test, y_test)
             print('\t\tsuper_ensemble_score:', super_ensemble_score)
+            sum_fold_super_ensemble_score += super_ensemble_score
 
             factory_pred_dict = get_factory_pred_dict(factory, X_test)
 
             workshop_100 = lexiworkshop(factory_pred_dict, X_test, y_test, 100)
             workshop_100_score = maj_vote_score(workshop_100, X_test, y_test)
             print('\t\tworkshop_100_score:', workshop_100_score)
+            sum_fold_workshop_100_score += workshop_100_score
 
             workshop_300 = lexiworkshop(factory_pred_dict, X_test, y_test, 300)
             workshop_300_score = maj_vote_score(workshop_300, X_test, y_test)
             print('\t\tworkshop_300_score:', workshop_300_score)
+            sum_fold_workshop_300_score += workshop_300_score
 
             workshop_500 = lexiworkshop(factory_pred_dict, X_test, y_test, 500)
             workshop_500_score = maj_vote_score(workshop_500, X_test, y_test)
             print('\t\tworkshop_500_score:', workshop_500_score)
+            sum_fold_workshop_500_score += workshop_500_score
 
             fold += 1
+        
+        mean_fold_bag_svc_score = sum_fold_bag_svc_score / n_folds
+        mean_fold_factory_score = sum_fold_factory_score / n_folds
+        mean_fold_super_ensemble_score = sum_fold_super_ensemble_score / n_folds
+        mean_fold_workshop_100_score = sum_fold_workshop_100_score / n_folds
+        mean_fold_workshop_300_score = sum_fold_workshop_300_score / n_folds
+        mean_fold_workshop_500_score = sum_fold_workshop_500_score / n_folds
+        df_dict['bag_svc'].append(mean_fold_bag_svc_score)
+        df_dict['factory'].append(mean_fold_factory_score)
+        df_dict['super_ensemble'].append(mean_fold_super_ensemble_score)
+        df_dict['workshop_100'].append(mean_fold_workshop_100_score)
+        df_dict['workshop_300'].append(mean_fold_workshop_300_score)
+        df_dict['workshop_500'].append(mean_fold_workshop_500_score)
+        
+        if save_data:
+            df = pd.DataFrame(df_dict)
+            df.to_csv(f'results/{data_file_name}.csv', index=False)
 
 
 if __name__ == '__main__':
