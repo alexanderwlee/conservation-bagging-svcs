@@ -95,16 +95,16 @@ def openml_driver():
     experiment(X, y, save_data=True, data_file_name='monks-problems-2_results')
     print()
 
-    # madelon
-    print('madelon')
-    df = pd.read_csv('datasets/openML/madelon.csv')
+    # one-hundred-plants-margin
+    print('one-hundred-plants-margin')
+    df = pd.read_csv('datasets/openML/one-hundred-plants-margin.csv')
     X = df.iloc[:, :-1]
     y = df.iloc[:, -1]
     sc = StandardScaler()
     X = sc.fit_transform(X)
     le = LabelEncoder()
     y = le.fit_transform(y)
-    experiment(X, y, save_data=True, data_file_name='madelon_results')
+    experiment(X, y, save_data=True, data_file_name='one-hundred-plants-margin_results')
     print()
 
 
