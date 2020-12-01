@@ -60,7 +60,6 @@ def maj_vote_score(estimators, X_test, y_test):
 
 
 def experiment(X, y, n_repl=10, n_folds=5, n_runs=10, n_svcs=100, save_data=False, data_file_name='test_data_file'):
-    # TODO: finish dataframe creation
     df_dict = {
         'rep': [], 'bag_svc': [], 'factory': [], 'super_ensemble': [], 
         'workshop_100': [], 'workshop_300': [], 'workshop_500': []
