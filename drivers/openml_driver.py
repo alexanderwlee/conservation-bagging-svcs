@@ -13,7 +13,7 @@ def run():
     X = sc.fit_transform(X)
     le = LabelEncoder()
     y = le.fit_transform(y)
-    experiment(X, y, save_data=True, data_file_name='teachingAssistant_results.csv')
+    experiment(X, y, save_data=True, data_file_name='teachingAssistant_results')
 
     # monks-problems-2
     df = pd.read_csv('datasets/openML/monks-problems-2.csv')
@@ -23,7 +23,7 @@ def run():
     X = sc.fit_transform(X)
     le = LabelEncoder()
     y = le.fit_transform(y)
-    experiment(X, y, save_data=True, data_file_name='monks-problems-2_results.csv')
+    experiment(X, y, save_data=True, data_file_name='monks-problems-2_results')
 
     # madelon
     df = pd.read_csv('datasets/openML/madelon.csv')
@@ -33,7 +33,7 @@ def run():
     X = sc.fit_transform(X)
     le = LabelEncoder()
     y = le.fit_transform(y)
-    experiment(X, y, save_data=True, data_file_name='madelon_results.csv')
+    experiment(X, y, save_data=True, data_file_name='madelon_results')
 
 
 if __name__ == '__main__':

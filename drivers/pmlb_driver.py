@@ -13,7 +13,7 @@ def run():
     X = sc.fit_transform(X)
     le = LabelEncoder()
     y = le.fit_transform(y)
-    experiment(X, y, save_data=True, data_file_name='cloud_results.csv')
+    experiment(X, y, save_data=True, data_file_name='cloud_results')
 
     # biomed
     X, y = fetch_data('biomed', return_X_y=True, local_cache_dir='./datasets/PMLB/')
@@ -21,7 +21,7 @@ def run():
     X = sc.fit_transform(X)
     le = LabelEncoder()
     y = le.fit_transform(y)
-    experiment(X, y, save_data=True, data_file_name='biomed_results.csv')
+    experiment(X, y, save_data=True, data_file_name='biomed_results')
 
     # car_evaluation
     X, y = fetch_data('car_evaluation', return_X_y=True, local_cache_dir='./datasets/PMLB/')
@@ -29,7 +29,7 @@ def run():
     X = sc.fit_transform(X)
     le = LabelEncoder()
     y = le.fit_transform(y)
-    experiment(X, y, save_data=True, data_file_name='car_evaluation_results.csv')
+    experiment(X, y, save_data=True, data_file_name='car_evaluation_results')
 
     # allrep
     X, y = fetch_data('allrep', return_X_y=True, local_cache_dir='./datasets/PMLB/')
@@ -37,7 +37,7 @@ def run():
     X = sc.fit_transform(X)
     le = LabelEncoder()
     y = le.fit_transform(y)
-    experiment(X, y, save_data=True, data_file_name='allrep_results.csv')
+    experiment(X, y, save_data=True, data_file_name='allrep_results')
 
 
 if __name__ == '__main__':

@@ -12,7 +12,7 @@ def run():
     X = sc.fit_transform(X)
     le = LabelEncoder()
     y = le.fit_transform(y)
-    experiment(X, y, save_data=True, data_file_name='iris_results.csv')
+    experiment(X, y, save_data=True, data_file_name='iris_results')
 
     # wine
     X, y = load_wine(return_X_y=True)
@@ -20,7 +20,7 @@ def run():
     X = sc.fit_transform(X)
     le = LabelEncoder()
     y = le.fit_transform(y)
-    experiment(X, y, save_data=True, data_file_name='wine_results.csv')
+    experiment(X, y, save_data=True, data_file_name='wine_results')
 
     # breats cancer
     X, y = load_breast_cancer(return_X_y=True)
@@ -28,7 +28,7 @@ def run():
     X = sc.fit_transform(X)
     le = LabelEncoder()
     y = le.fit_transform(y)
-    experiment(X, y, save_data=True, data_file_name='breat_cancer_results.csv')
+    experiment(X, y, save_data=True, data_file_name='breat_cancer_results')
 
     # digits
     X, y = load_digits(return_X_y=True)
@@ -36,7 +36,7 @@ def run():
     X = sc.fit_transform(X)
     le = LabelEncoder()
     y = le.fit_transform(y)
-    experiment(X, y, save_data=True, data_file_name='digits_results.csv')
+    experiment(X, y, save_data=True, data_file_name='digits_results')
 
 
 if __name__ == '__main__':
