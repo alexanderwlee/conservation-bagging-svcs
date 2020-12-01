@@ -84,7 +84,7 @@ def experiment(X, y, n_repl=10, n_folds=5, n_runs=10, n_svcs=100, save_data=Fals
             super_ensemble = []
             for run in range(n_runs):
                 print('\t\trun:', run)
-                bag_svc = BaggingClassifier(base_estimator=SVC(), n_estimators=n_svcs, n_jobs=-1, random_state=0)
+                bag_svc = BaggingClassifier(base_estimator=SVC(), n_estimators=n_svcs, n_jobs=-1, random_state=run)
                 bag_svc.fit(X_train, y_train)
                 bag_svc_score = bag_svc.score(X_test, y_test)
                 print('\t\t\tbag_svc_score:', bag_svc_score)
@@ -141,4 +141,6 @@ def experiment(X, y, n_repl=10, n_folds=5, n_runs=10, n_svcs=100, save_data=Fals
 
 if __name__ == '__main__':
     # use for debugging purposes
-    pass
+    from sklearn.datasets import make_classification
+    X, y = make_classification(random_state=0)
+    experiment(X, y)
