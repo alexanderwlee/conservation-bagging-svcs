@@ -134,9 +134,9 @@ def experiment(X, y, n_repl=10, n_folds=5, n_runs=10, n_svcs=100, save_data=Fals
         df_dict['workshop_300'].append(mean_fold_workshop_300_score)
         df_dict['workshop_500'].append(mean_fold_workshop_500_score)
         
-        if save_data:
-            df = pd.DataFrame(df_dict)
-            df.to_csv(f'results/{data_file_name}.csv', index=False)
+    if save_data:
+        df = pd.DataFrame(df_dict)
+        df.to_csv(f'results/{data_file_name}.csv', index=False)
 
 
 if __name__ == '__main__':

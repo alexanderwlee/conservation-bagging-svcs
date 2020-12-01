@@ -5,7 +5,8 @@ Please read `prototype.ipynb`.
 ### Datasets
 #### OpenML
 - teachingAssistant: https://www.openml.org/d/1115
-- arcene: https://www.openml.org/d/1458
+- monk-problems-2: https://www.openml.org/d/334
+- madelon: https://www.openml.org/d/1485
 
 #### PMLB
 - https://github.com/EpistasisLab/pmlb
