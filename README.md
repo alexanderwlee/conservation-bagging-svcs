@@ -1,5 +1,5 @@
 # Conservation Bagging Support Vector Classifiers
-Please read `prototype.ipynb`.
+Please read `final_project.ipynb`.
 
 ## References
 ### Datasets
