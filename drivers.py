@@ -36,7 +36,7 @@ def easy_driver():
     X = sc.fit_transform(X)
     le = LabelEncoder()
     y = le.fit_transform(y)
-    experiment(X, y, save_data=True, data_file_name='breat_cancer_results')
+    experiment(X, y, save_data=True, data_file_name='breast_cancer_results')
     print()
 
     # digits
