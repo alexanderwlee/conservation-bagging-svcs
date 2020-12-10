@@ -1,2 +1,2 @@
 # Conservation Bagging Support Vector Classifiers
-Please read `final_project.ipynb`.
+Please read `project.ipynb`.
